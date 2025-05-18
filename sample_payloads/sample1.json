@@ -1,0 +1,13 @@
+{
+    "total_leaders": 1,
+    "total_followers": 1,
+    "dance_styles": ["Waltz"],
+    "leader_knowledge": {
+      "1": ["Waltz"]
+    },
+    "follower_knowledge": {
+      "A": ["Waltz"]
+    },
+    "dance_duration_minutes": 15
+  }
+  

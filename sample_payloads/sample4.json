@@ -1,0 +1,36 @@
+{
+    "total_leaders": 10,
+    "total_followers": 15,
+    "dance_styles": ["Waltz", "Tango", "Foxtrot"],
+    "leader_knowledge": {
+      "1": ["Waltz", "Tango"],
+      "2": ["Foxtrot"],
+      "3": ["Waltz", "Foxtrot"],
+      "4": ["Tango"],
+      "5": ["Waltz", "Tango", "Foxtrot"],
+      "6": ["Tango"],
+      "7": ["Waltz"],
+      "8": ["Foxtrot"],
+      "9": ["Tango", "Foxtrot"],
+      "10": ["Waltz"]
+    },
+    "follower_knowledge": {
+      "A": ["Waltz", "Tango", "Foxtrot"],
+      "B": ["Tango"],
+      "C": ["Waltz"],
+      "D": ["Foxtrot"],
+      "E": ["Tango"],
+      "F": ["Waltz", "Foxtrot"],
+      "G": ["Waltz", "Tango"],
+      "H": ["Foxtrot"],
+      "I": ["Tango"],
+      "J": ["Waltz"],
+      "K": ["Waltz", "Tango"],
+      "L": ["Foxtrot"],
+      "M": ["Tango"],
+      "N": ["Waltz"],
+      "O": ["Waltz", "Tango"]
+    },
+    "dance_duration_minutes": 120
+  }
+  
