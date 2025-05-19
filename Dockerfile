@@ -1,25 +1,37 @@
-# Use a slim official Python base image
-FROM python:3.11-slim
+###############################################################################
+# ---------- 1️⃣  Build stage: compile wheels & collect pure‑Python deps ------
+###############################################################################
+FROM python:3.11-slim AS builder
 
-# Set working directory
-WORKDIR /app
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
+# 1. Install *native* build tools only here
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy dependencies file if you have one
+WORKDIR /install
+
+# 2. Copy dependency list first for better Docker‑layer caching
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# 3. Build wheels into /wheels, then install into /install
+RUN pip wheel --wheel-dir /wheels -r requirements.txt \
+ && pip install --prefix=/install --no-deps /wheels/*
 
-# Copy app code
+###############################################################################
+# ---------- 2️⃣  Runtime stage: copy deps & app, no compilers ---------------
+###############################################################################
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /app
+
+# 4. Copy site‑packages from the builder (≈ /usr/local or /install)
+COPY --from=builder /install /usr/local
+
+# 5. Copy app source
 COPY app ./app
 
-# Expose FastAPI on port 8000
 EXPOSE 8000
-
-# Run the FastAPI app with uvicorn
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
